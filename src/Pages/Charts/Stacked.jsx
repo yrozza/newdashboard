@@ -1,9 +1,42 @@
-import React from 'react'
+import React from "react";
+import {
+  ChartComponent,
+  SeriesCollectionDirective,
+  SeriesDirective,
+  Inject,
+  Legend,
+  Category,
+  StackingColumnSeries,
+  Tooltip,
+} from "@syncfusion/ej2-react-charts";
 
-const Stacked = () => {
+import {
+  stackedCustomSeries,
+  stackedPrimaryXAxis,
+  stackedPrimaryYAxis,
+} from "../../Data/dummy";
+import { useStateContext } from "../../contexts/ContextProvider";
+
+const Stacked = (props) => {
   return (
-    <div>ColorPicker</div>
-  )
-}
+    <ChartComponent
+      id="charts"
+      primaryXAxis={stackedPrimaryXAxis}
+      primaryYAxis={stackedPrimaryYAxis}
+      width={props.width}
+      height={props.height}
+      chartArea={{ border: { width: 0 } }}
+      tooltip={{ enable: true }}
+      legendSettings={{ background: "white" }}
+    >
+      <Inject services={[StackingColumnSeries, Category, Legend, Tooltip]} />
+      <SeriesCollectionDirective>
+        {stackedCustomSeries.map((item, index) => (
+          <SeriesDirective key={index} {...item} />
+        ))}
+      </SeriesCollectionDirective>
+    </ChartComponent>
+  );
+};
 
-export default Stacked
+export default Stacked;

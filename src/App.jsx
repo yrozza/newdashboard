@@ -3,16 +3,17 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Navbar, Footer, Sidebar, ThemeSettings } from './Components';
-import { Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor } from './Pages/Index';
+import { Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor } from './Pages';
+import { useStateContext } from './contexts/ContextProvider';
 import './App.css';
 const App = () => {
-  const activeMenu = false;
+  const { activeMenu } = useStateContext();
+
+
   return (
     <div>
       <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg ">
-
-
 
 
           {/* settings button */}
@@ -26,10 +27,9 @@ const App = () => {
 
 
 
-
           {/* sidebar  */}
           {activeMenu ?
-            (<div className='w-72 fixed dark:bg-secondary-dark-bg bg-white sidebar '>sidebar</div>)
+            (<div className='w-72 fixed dark:bg-secondary-dark-bg bg-white sidebar '><Sidebar /></div>)
             : (<div className='w-0 dark:bg-secondary-dark-bg'>sidebar hidden</div>)}
         </div>
 
@@ -44,47 +44,48 @@ const App = () => {
 
           {/* Navbar  */}
           <div className="bg-main-bg fixed navbar w-full dark:bg-secondary-dark-bg md:static  ">
-            navbar
+
+            <Navbar />
           </div>
 
 
           {/* sidebar optians  */}
           <div>
             <Routes>
-              <Route path="/" element="HOSPITAL" />
-              <Route path="/hospital" element="HOSPITAL" />
+              <Route path="/" element={(<Ecommerce />)} />
+              <Route path="/ecommerce" element={(<Ecommerce />)} />
 
 
               {/* Pages */}
-              <Route path="/doctors" element="Doctors" />
-              <Route path="/patients" element="Patients" />
-              <Route path="/medicants" element="Medicants" />
+              <Route path="/customers" element={(<Customers/>)} />
+              <Route path="/employees" element={(<Employees/>)} />
+              <Route path="/orders" element={(<Orders />)} />
 
 
 
               {/* Apps */}
-              <Route path="/calender" element="Calendar" />
+              <Route path="/calendar" element={(<Calendar/>)} />
               <Route path="/kanban" element="Kanban" />
               <Route path="/color-picker" element="ColorPicker" />
-              <Route path="/editor" element="Editor" />
+              <Route path="/editor" element={(<Editor />)} />
 
 
 
               {/* Charts  */}
-              <Route path="/line" element="Line" />
+              <Route path="/line" element={(<Line />)} />
               <Route path="/area" element="Area" />
               <Route path="/bar" element="Bar" />
               <Route path="/pie" element="Pie" />
               <Route path="/financial" element="Financial" />
               <Route path="/color-mapping" element="ColorMapping" />
               <Route path="/pyramid" element="Pyramid" />
-              <Route path="/stacked" element="Stacked" />
+              <Route path="/stacked" element={(<Stacked />)} />
             </Routes>
           </div>
-          <Footer />
         </div>
+        <Footer />
 
-      </BrowserRouter>
+      </BrowserRouter >
     </div>
 
   )
