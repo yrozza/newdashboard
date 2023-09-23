@@ -1,42 +1,14 @@
-import React from "react";
-import {
-  ChartComponent,
-  SeriesCollectionDirective,
-  SeriesDirective,
-  Inject,
-  Legend,
-  Category,
-  StackingColumnSeries,
-  Tooltip,
-} from "@syncfusion/ej2-react-charts";
+import React from 'react';
 
-import {
-  stackedCustomSeries,
-  stackedPrimaryXAxis,
-  stackedPrimaryYAxis,
-} from "../../Data/dummy";
-import { useStateContext } from "../../contexts/ContextProvider";
+import { ChartsHeader, Stacked as StackedChart } from '../../Components';
 
-const Stacked = (props) => {
-  return (
-    <ChartComponent
-      id="charts"
-      primaryXAxis={stackedPrimaryXAxis}
-      primaryYAxis={stackedPrimaryYAxis}
-      width={props.width}
-      height={props.height}
-      chartArea={{ border: { width: 0 } }}
-      tooltip={{ enable: true }}
-      legendSettings={{ background: "white" }}
-    >
-      <Inject services={[StackingColumnSeries, Category, Legend, Tooltip]} />
-      <SeriesCollectionDirective>
-        {stackedCustomSeries.map((item, index) => (
-          <SeriesDirective key={index} {...item} />
-        ))}
-      </SeriesCollectionDirective>
-    </ChartComponent>
-  );
-};
+const Stacked = () => (
+  <div className="m-4 md:m-10 mt-24 p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
+    <ChartsHeader category="Stacked" title="Revenue Breakdown" />
+    <div className="w-full">
+      <StackedChart />
+    </div>
+  </div>
+);
 
 export default Stacked;
